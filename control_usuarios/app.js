@@ -1,163 +1,110 @@
-
 const express = require("express");
+
 const app = express();
 
-// Middleware para parsear JSON
 app.use(express.json());
 
 const usuarios = [
-  {
-    id: 1,
+  { id: 1,
     nombre: "Jesus",
-    apellido: "Garcia",
+    apellidos: "Garcia",
     email: "garciagg1090@gmail.com",
   },
-  {
-    id: 2,
-    nombre: "Armando",
-    apellido: "Escutia",
-    email: "arescu@gmail.com",
-  },
-  {
-    id: 3,
+
+  { id: 2,
     nombre: "Uriel",
-    apellido: "Castillo",
+    apellidos: "Castillo",
     email: "uricastillo@gmail.com",
   },
 ];
 
-// Ruta principal
-app.get("/", (req, res) => {
-  console.log("Petición GET en la raíz /");
-  res.status(200).send("Hola Mundo");
+app.get("/usuarios",(req,res)=>{
+    
+  res.status(200).send(usuarios);
 });
 
-// POST para agregar un nuevo usuario
-app.post("/usuarios", (req, res) => {
-  const { nombre, apellido, email } = req.body;
-
-  // Validación de campos vacíos
-  if (!nombre || !apellido || !email) {
-    console.error("Error: Campos vacíos");
-    return res.status(400).json({ error: "Todos los campos son obligatorios" });
-  }
-
-  // Verificar formato de correo electrónico válido
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    console.error("Error: Formato de correo no válido");
-    return res.status(400).json({ error: "Formato de correo no válido" });
-  }
-
-  // Verificar si el correo ya existe
-  const emailExiste = usuarios.some((usuario) => usuario.email === email);
-  if (emailExiste) {
-    console.error("Error: El correo ya está registrado");
-    return res.status(400).json({ error: "El correo ya está registrado" });
-  }
-
-  // Crear nuevo usuario
-  const nuevoUsuario = {
-    id: usuarios.length + 1,
-    nombre,
-    apellido,
-    email,
+app.get("/usuarios/:id", (req, res) => {
+  const {id} = req.params;
+  
+  if(isNaN(+id)) {
+  res.status(400).send({error: "El id debe ser número"});
+  return
   };
 
-  usuarios.push(nuevoUsuario);
-  console.log("Usuario agregado:", nuevoUsuario);
+  //console.log(typeof +id);
+  //console.log(params);
 
-  res
-    .status(201)
-    .json({ message: "Usuario creado exitosamente", usuario: nuevoUsuario });
+  const usuario = usuarios.find((usuario) => usuario.id === +id);
+
+  if(usuario === undefined){
+    res.status(400).send({error: "El usuario con id ${id} no existe"});
+    return;
+  };
+  
+  res.status(200).send(usuario);
+
 });
 
-// Ruta para obtener todos los usuarios
-app.get("/usuarios", (req, res) => {
-  console.log("Petición GET para /usuarios");
-  res.status(200).json(usuarios);
+app.post("/usuarios",(req, res) => {
+  const {nombre, apellidos, email} = req.body;
+
+    
+    if (!nombre || !apellidos || !email) {
+      res.status(404).send({ error: "Todos los campos (nombre, apellidos, email) son obligatorios" });
+      return;
+    }
+ 
+  const emailE = usuarios.find((usuario) => usuario.email === email);
+  if (emailE) {
+    res.status(400).send({ error: "El correo electrónico ya está registrado" });
+    return;
+  }
+  
+  usuarios.push({id: usuarios.length +1, nombre, apellidos, email});
+  
+  
+  res.status(201).send("El usuario se agregó correctamente");
+
 });
 
-// Ruta para obtener un usuario por ID
-app.get("/usuarios/:id", (req, res) => {
-  const userId = parseInt(req.params.id);
+app.put("/usuarios/:id", (req,res) => {
+  const {nombre, apellidos, email} = req.body;
 
-  if (isNaN(userId)) {
-    console.error("Error: ID inválido recibido");
-    return res.status(400).json({ error: "ID inválido, debe ser un número" });
-  }
-
-  const usuario = usuarios.find((u) => u.id === userId);
-  if (usuario) {
-    console.log("Usuario encontrado: ${JSON.stringify(usuario)}");
-    res.status(200).json(usuario);
-  } else {
-    console.error("Error: Usuario con ID ${userId} no encontrado");
-    res.status(404).json({ error: "Usuario no encontrado" });
-  }
+  const id = +req.params.id;
+    
+    if (!nombre || !apellidos || !email) {
+      res.status(404).send({ error: "Todos los campos (nombre, apellidos, email) son obligatorios" });
+      return;
+    }
+    if(isNaN(+id)) {
+      res.status(400).send({error: "El id debe ser número"});
+      return
+      };
+    
+      //console.log(typeof +id);
+      //console.log(params);
+    
+      const usuario = usuarios.find((usuario) => usuario.id === +id);
+    
+      if(usuario === undefined){
+        res.status(400).send({error: "El usuario con id ${id} no existe"});
+        return;
+      };
+      
+    usuarios.forEach((usuario) => {
+      if(usuario.id === id){
+        usuario.nombre = nombre;
+        usuario.apellidos = apellidos;
+        usuario.email = email;
+      }
+    })
+    res.status(200).send("El usuario se actualizo correctamente");
 });
 
-// Ruta para actualizar un usuario (PUT)
-app.put("/usuarios/:id", (req, res) => {
-  const userId = parseInt(req.params.id);
-  const { nombre, apellido, email } = req.body;
-
-  if (isNaN(userId)) {
-    console.error("Error: ID inválido recibido");
-    return res.status(400).json({ error: "ID inválido, debe ser un número" });
-  }
-
-  const usuario = usuarios.find((u) => u.id === userId);
-  if (!usuario) {
-    console.error("Error: Usuario con ID ${userId} no encontrado");
-    return res.status(404).json({ error: "Usuario no encontrado" });
-  }
-
-  // Validar que los campos no estén vacíos
-  if (!nombre || !apellido || !email) {
-    console.error("Error: Todos los campos son obligatorios");
-    return res.status(400).json({ error: "Todos los campos son obligatorios" });
-  }
-
-  // Verificar formato de correo electrónico válido
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    console.error("Error: Formato de correo no válido");
-    return res.status(400).json({ error: "Formato de correo no válido" });
-  }
-
-  // Actualizar el usuario
-  usuario.nombre = nombre;
-  usuario.apellido = apellido;
-  usuario.email = email;
-
-  console.log("Usuario actualizado:", usuario);
-  res
-    .status(200)
-    .json({ message: "Usuario actualizado exitosamente", usuario });
+app.patch("/usuarios/:id", (req,res) => {
+  
 });
 
-// Ruta para eliminar un usuario
-app.delete("/usuarios/:id", (req, res) => {
-  const userId = parseInt(req.params.id);
-
-  if (isNaN(userId)) {
-    console.error("Error: ID inválido recibido");
-    return res.status(400).json({ error: "ID inválido, debe ser un número" });
-  }
-
-  const usuarioIndex = usuarios.findIndex((u) => u.id === userId);
-  if (usuarioIndex === -1) {
-    console.error("Error: Usuario con ID ${userId} no encontrado");
-    return res.status(404).json({ error: "Usuario no encontrado" });
-  }
-
-  const usuarioEliminado = usuarios.splice(usuarioIndex, 1);
-  console.log("Usuario eliminado:", usuarioEliminado);
-  res.status(200).json({ message: "Usuario eliminado correctamente" });
-});
-
-// Iniciar el servidor
 app.listen(3000, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
+    console.log("Servidor cooriendo en http://localhost:3000")
 });
