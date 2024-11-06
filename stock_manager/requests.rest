@@ -1,4 +1,33 @@
-GET http://localhost:3000/users/
+GET http://localhost:3000/users
 
 ###
-GET http://localhost:3000/users/2
+GET http://localhost:3000/users/1
+
+
+###
+GET http://localhost:3000/users/3/
+//done miestra un usuario dependiendo del id q
+
+###
+POST http://localhost:3000/users/
+Content-Type: application/json
+
+{
+  "name": "Jesus Alberto" 
+  //para agregar un usuario
+}
+
+
+###
+PUT http://localhost:3000/users/2
+Content-Type: application/json
+
+{
+  "name": "Jesus Alberto" 
+  //para actualizar el usuario
+}
+
+
+###
+DELETE http://localhost:3000/users/2/ 
+//para eliminar
