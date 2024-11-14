@@ -2,7 +2,7 @@ GET http://localhost:3000/users/
 //mostrar todos los usuarios
 
 ###
-GET http://localhost:3000/users/3/
+GET http://localhost:3000/users/4/
 //done miestra un usuario dependiendo del id q
 
 ###
@@ -10,23 +10,75 @@ POST http://localhost:3000/users/
 Content-Type: application/json
 
 {
-  "username": "batman",
-  "password": "batmobile",
+  "username": "bryan",
+  "password": "bryanmyers",
   "email": "batman@batmobile.com"
   //para agregar un usuario
 }
 
 
 ###
-PUT http://localhost:3000/users/2
+PUT http://localhost:3000/users/1
 Content-Type: application/json
 
 {
-  "name": "Pao" 
+  "username": "Pao" 
   //para actualizar el usuario
 }
 
 
 ###
-DELETE http://localhost:3000/users/5/ 
+DELETE http://localhost:3000/users/3
 //para eliminar
+
+###
+POST http://localhost:3000/users/login
+Content-Type: application/json
+
+{
+  "username": "Ironman",
+  "password": "Jarvis"
+}
+
+
+
+### Mostrar todos los miembros de staff
+GET http://localhost:3000/staff
+
+### Mostrar un miembro específico de staff por ID
+GET http://localhost:3000/staff/6
+
+### Agregar un nuevo miembro a staff
+POST http://localhost:3000/staff
+Content-Type: application/json
+
+{
+  "first_name": "Sergio",
+  "last_name": "Wayne",
+  "birth_date": "1978-05-27",
+  "gender": "M",
+  "phone_number": "1234567890",
+  "email": "bruce@wayneindustries.com",
+  "address": "Wayne Manor, Gotham",
+  "is_active": true,
+  "user_id": 4
+}
+
+### Actualizar un miembro específico de staff
+PUT http://localhost:3000/staff/2
+Content-Type: application/json
+
+{
+  "first_name": "Bruce",
+  "last_name": "Wayne",
+  "birth_date": "1978-05-27",
+  "gender": "M",
+  "phone_number": "0987654321",
+  "email": "bruce@wayneenterprises.com",
+  "address": "New Address, Gotham",
+  "is_active": true,
+  "user_id": 4
+}
+
+### Eliminar un miembro específico de staff por ID
+DELETE http://localhost:3000/staff/4
