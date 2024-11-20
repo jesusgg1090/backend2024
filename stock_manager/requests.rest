@@ -10,8 +10,8 @@ POST http://localhost:3000/users/
 Content-Type: application/json
 
 {
-  "username": "bryan",
-  "password": "bryanmyers",
+  "username": "Kobe",
+  "password": "Rodriguez",
   "email": "batman@batmobile.com"
   //para agregar un usuario
 }
@@ -53,7 +53,7 @@ POST http://localhost:3000/staff
 Content-Type: application/json
 
 {
-  "first_name": "Sergio",
+  "first_name": "Jesus",
   "last_name": "Wayne",
   "birth_date": "1978-05-27",
   "gender": "M",
