@@ -142,7 +142,7 @@ const updateClient = async (req = request, res = response) => {
   }
 };
 
-// Para eliminar un cliente (marcar como inactivo)
+// Para desactivar un cliente (marcar como inactivo)
 const deleteClient = async (req = request, res = response) => {
   const { rfc } = req.params;
 

@@ -9,11 +9,11 @@ POST http://localhost:3000/sales
 Content-Type: application/json
 
 {
-  "client_rfc": "21350239",
+  "client_rfc": "21350249",
     "product_id": 2,
     "quantity": 10,
     "sale_date": "2024-11-24T16:00:00",
-    "payment_method": "cash",
+    "payment_method": "debit",
     "ticket": "TICKET1",
     "invoice": "INV1"
 }
@@ -28,7 +28,7 @@ Content-Type: application/json
     "product_id": 2,
     "quantity": 3,
     "sale_date": "2024-11-23T17:32:00",
-    "payment_method": "credit",
+    "payment_method": "cash",
     "ticket": "TICKET1",
     "invoice": "INV1"
 }

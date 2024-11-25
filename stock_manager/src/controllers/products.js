@@ -119,7 +119,7 @@ const updateProduct = async (req = request, res = response) => {
   }
 };
 
-// Eliminar un producto
+// Vaciar un producto a cero
 const deleteProduct = async (req = request, res = response) => {
   const { id } = req.params;
   if (isNaN(id)) {

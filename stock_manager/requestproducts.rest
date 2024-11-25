@@ -15,8 +15,8 @@ POST http://localhost:3000/products
 Content-Type: application/json
 
 {
-  "product": "Playera Polo",
-  "description": "Playera marca Polo, color negro",
+  "product": "Pantalon de mezclilla",
+  "description": "Pantalon de mezclilla, color azul",
   "stock": 30,
   "measurement_unit": "piece",
   "price": 200,
@@ -28,8 +28,8 @@ PUT http://localhost:3000/products/2
 Content-Type: application/json
 
 {
- "product": "Playera Polo",
-  "description": "Playera marca Polo, color azul marino",
+ "product": "Tennis Adidos",
+  "description": "Tennis, Color Blanco y Azul",
   "stock": 32,
   "measurement_unit": "piece",
   "price": 215,
