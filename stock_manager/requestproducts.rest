@@ -7,7 +7,7 @@ GET http://localhost:3000/products/with-stock
 Content-Type: application/json
 
 ### Obtener un producto por ID
-GET http://localhost:3000/products/1
+GET http://localhost:3000/products/3
 Content-Type: application/json
 
 ### Agregar un nuevo producto
