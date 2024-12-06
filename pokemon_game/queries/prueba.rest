@@ -1,1 +1,31 @@
-GET http://localhost:3000
+GET http://localhost:3000/users
+
+###
+GET http://localhost:3000/users/1
+
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "first_name": "Jesus",
+    "last_name": "Garcia",
+    "email": "garcia@gmail.com",
+    "password": "garcia123"
+}
+
+###
+
+PUT http://localhost:3000/users/1
+Content-Type: application/json
+
+{
+    "first_name": "Jesus",
+    "last_name": "Castillo",
+    "email": "castillo@gmail.com"
+}
+
+###
+
+DELETE http://localhost:3000/users/2
