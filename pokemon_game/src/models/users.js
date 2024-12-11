@@ -5,7 +5,8 @@ const userQueries = {
     getById: 'SELECT * FROM users WHERE id = ?',
     editUser: 'UPDATE users SET first_name = ?, last_name = ?, email = ? WHERE id = ?',
     emailValid: 'SELECT * FROM users WHERE email = ? AND id <> ?',
-    deleteUser: 'DELETE FROM users WHERE id = ?'
+    deleteUser: 'DELETE FROM users WHERE id = ?',
+
 }
 
 module.exports = userQueries;
