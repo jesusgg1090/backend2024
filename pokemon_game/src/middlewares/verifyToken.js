@@ -13,8 +13,9 @@ if(!token){
    try{
     
     const payload = jwt.verify(token, secret);
+    console.log(payload);
     req.id = payload.id;
-    req.isAdmin = payload.isAdmin;
+    req.is_Admin = payload.is_Admin;
     next();
    }catch(err){
     return res.status(403).send({message: "Token not valid"});

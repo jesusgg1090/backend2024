@@ -40,7 +40,7 @@ const login = async (req = request,res = response) =>{
 
         const token = jwt.sign({
          id: user.id,
-         isAdmin: user.isAdmin
+         is_Admin: user.is_Admin
         }, secret, {
             expiresIn: "5m"
         });
